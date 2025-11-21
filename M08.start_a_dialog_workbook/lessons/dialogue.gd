@@ -92,7 +92,12 @@ func slide_in() -> void:
 	slide_tween.parallel().tween_property(body, "modulate:a", 1, 0.2)
 
 func set_dialogue_items(new_dialogue_items: Array[DialogueItem]) -> void:
+	update_configuration_warnings()
 	for index in new_dialogue_items.size():
 		if new_dialogue_items[index] == null:
 			new_dialogue_items[index] = DialogueItem.new()
 	dialogue_items = new_dialogue_items
+func _get_configuration_warnings() -> PackedStringArray:
+	if dialogue_items.is_empty():
+		return ["You need at least one dialogue item for the dialogue system to work."]
+	return []
